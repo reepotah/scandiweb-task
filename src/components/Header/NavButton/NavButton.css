@@ -1,0 +1,27 @@
+.myButton {
+  color: black;
+  background-color: white;
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 120%;
+  text-transform: uppercase;
+  border: none;
+  border-bottom: 2px solid white;
+  padding: 0 16px;
+}
+.myButton::after {
+  display: block;
+  content: attr(dummy);
+  font-weight: 600;
+  height: 1px;
+  color: transparent;
+  overflow: hidden;
+  visibility: hidden;
+}
+.myButton.active {
+  color: #5ece7b;
+  font-weight: 600;
+  border-bottom: 2px solid #5ece7b;
+}

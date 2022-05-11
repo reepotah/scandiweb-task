@@ -1,0 +1,144 @@
+.pageContainer {
+  display: flex;
+  margin: 80px 200px auto 100px;
+  height: calc(100vh - 260px);
+}
+/**/
+.galleryContainer {
+  display: flex;
+  width: 60%;
+}
+.gallerySelector {
+  display: flex;
+  flex-direction: column;
+  min-width: 80px;
+  width: 80px;
+  height: 100%;
+  margin-right: 40px;
+  row-gap: 30px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.gallerySelector::-webkit-scrollbar {
+  width: 0px;
+}
+.galleryButton {
+  display: flex;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+}
+.galleryButtonThumbnail {
+  object-fit: contain;
+  max-height: 100%;
+  max-width: 100%;
+}
+.galleryDisplay {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+}
+.galleryDisplayImage {
+  object-fit: contain;
+  max-height: 100%;
+  max-width: 100%;
+}
+/**/
+.detailsContainer {
+  display: flex;
+  flex-direction: column;
+  min-width: 290px;
+  max-width: 25%;
+  min-height: 250px;
+  margin-left: 100px;
+}
+.detailsTitle {
+  font-size: 30px;
+  line-height: 40px;
+  display: block;
+}
+/**/
+.detailsAttributeContainer {
+  display: block;
+  margin: 35px 0;
+}
+.attributeLabel {
+  font-family: "Roboto Condensed";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 18px;
+  display: block;
+  margin: 12px 0 8px 0;
+}
+.textAttributeContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  column-gap: 12px;
+}
+.textAttributeButton {
+  user-select: none;
+  display: block;
+  height: 45px;
+  line-height: 45px;
+  min-width: 63px;
+  border: 1px solid black;
+  text-align: center;
+  padding: 0 5px;
+}
+.swatchAttributeContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  column-gap: 8px;
+  row-gap: 8px;
+}
+.swatchAttributeButton {
+  display: block;
+  height: 32px;
+  width: 32px;
+}
+/**/
+.detailsPrice {
+  font-family: "Roboto Condensed";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 18px;
+  display: block;
+}
+.detailsPriceValue {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 46px;
+  display: block;
+}
+.detailsAddToCart {
+  margin: 20px 0 40px 0;
+  display: block;
+}
+.detailsText {
+  display: block;
+  overflow-y: scroll;
+}
+.detailsText::-webkit-scrollbar {
+  width: 0px;
+}
+.addToCartButton {
+  display: inline-block;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 120%;
+  width: 100%;
+  height: 52px;
+  color: white;
+  border: 1px solid #5ece7b;
+  background-color: #5ece7b;
+}
+.addToCartButton.outOfStock {
+  border: 1px solid black;
+  background-color: white;
+  color: black;
+}

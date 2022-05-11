@@ -1,0 +1,16 @@
+.errorPageContainer {
+  display: flex;
+  flex-direction: column;
+  margin: 10vmin auto 20vmin;
+  text-align: center;
+  font-size: 5vmin;
+  align-items: center;
+}
+.errorPageBody {
+  transform: rotate(90deg);
+  height: 50vmin;
+  width: 50vmin;
+  line-height: 46vmin;
+  font-size: 50vmin;
+  margin: 5vmin;
+}
