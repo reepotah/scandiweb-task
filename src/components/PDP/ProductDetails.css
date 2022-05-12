@@ -77,6 +77,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   column-gap: 12px;
+  row-gap: 12px;
 }
 .textAttributeButton {
   user-select: none;
@@ -88,6 +89,10 @@
   text-align: center;
   padding: 0 5px;
 }
+.textAttributeButton.isActive {
+  color: white;
+  background-color: black;
+}
 .swatchAttributeContainer {
   display: flex;
   flex-direction: row;
@@ -97,9 +102,17 @@
 }
 .swatchAttributeButton {
   display: block;
-  height: 32px;
-  width: 32px;
+  position: relative;
+  border: 1px solid black;
+  height: 36px;
+  width: 36px;
+  padding: 2px;
 }
+.swatchAttributeButton.isActive {
+  outline: 2px solid #5ece7b;
+  border: 1px solid white;
+}
+
 /**/
 .detailsPrice {
   font-family: "Roboto Condensed";

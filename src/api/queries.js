@@ -26,7 +26,7 @@ export const GET_CATEGORY_BY_ID = (id) =>
 export const GET_PRODUCT_BY_ID = (id) =>
   new Query("product", true)
     .addArgument("id", "String!", id)
-    .addFieldList(["brand", "name", "category", "inStock", "description"])
+    .addFieldList(["id", "brand", "name", "category", "inStock", "description"])
     .addField(new Field("gallery", true))
     .addField(
       new Field("prices", true)

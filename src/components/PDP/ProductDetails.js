@@ -1,7 +1,9 @@
 import { client } from "@tilework/opus";
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Navigate } from "react-router-dom";
 import { GET_PRODUCT_BY_ID } from "../../api/queries";
+import { addToCart } from "../../redux/cartSlice";
 import "./ProductDetails.css";
 
 class ProductDetails extends Component {
@@ -9,16 +11,23 @@ class ProductDetails extends Component {
     super(props);
 
     this.state = {
+      noProduct: false,
       product: undefined,
       image: "",
-      selected: [],
+      selected: {},
     };
   }
   hadnleAddToCartButtonClick() {
     /*TODO*/
+    console.log("Add to cart: " + this.state.product.id);
+    this.props.addToCart({
+      [this.state.product.id]: [{ selected: this.state.selected, quantity: 1 }],
+    });
   }
-  handleAttributeButtonClick(index, index2) {
-    /*TODO*/
+  handleAttributeButtonClick(attribute, item) {
+    let selected = this.state.selected;
+    selected[attribute.type + ":" + attribute.id] = item;
+    this.setState({ selected: selected });
   }
   handleGalleryButtonClick(image) {
     this.setState({ image: image });
@@ -28,8 +37,18 @@ class ProductDetails extends Component {
     let id = arr[arr.length - 1];
     client.post(GET_PRODUCT_BY_ID(id)).then((result) => {
       let { product } = result;
-      this.setState({ product: product });
-      this.setState({ image: product.gallery[0] });
+      if (!product) this.setState({ noProduct: true });
+      else {
+        let preSelect = {};
+        product.attributes.map((attribute) => {
+          preSelect[attribute.type + ":" + attribute.id] = attribute.items[0];
+        });
+        this.setState({
+          product: product,
+          image: product.gallery[0],
+          selected: preSelect,
+        });
+      }
     });
   }
   renderGalleryButton(image, id) {
@@ -45,21 +64,37 @@ class ProductDetails extends Component {
       </div>
     );
   }
+  checkIfActive(attribute, item) {
+    let selected = this.state.selected;
+    if (selected[attribute.type + ":" + attribute.id])
+      if (selected[attribute.type + ":" + attribute.id] === item)
+        return " isActive";
+    return "";
+  }
   renderAttributeSelectors(product) {
-    /*TODO*/
-    let string = product.attributes.map((item, index) => {
-      switch (item.type) {
+    console.log(product.attributes);
+    let string = product.attributes.map((attribute, index) => {
+      switch (attribute.type) {
         case "text":
           return (
             <>
               <div key={index + "labelT"} className="attributeLabel">
-                {item.name}
+                {attribute.name}
               </div>
               <div key={index + "valueT"} className="textAttributeContainer">
-                {item.items.map((id, index2) => {
+                {attribute.items.map((item, index2) => {
                   return (
-                    <div key={index2} className="textAttributeButton">
-                      {id.displayValue}
+                    <div
+                      key={index2}
+                      className={
+                        "textAttributeButton" +
+                        this.checkIfActive(attribute, item)
+                      }
+                      onClick={() => {
+                        this.handleAttributeButtonClick(attribute, item);
+                      }}
+                    >
+                      {item.displayValue}
                     </div>
                   );
                 })}
@@ -70,16 +105,24 @@ class ProductDetails extends Component {
           return (
             <>
               <div key={index + "labelSW"} className="attributeLabel">
-                {item.name}
+                {attribute.name}
               </div>
               <div key={index + "valueSW"} className="swatchAttributeContainer">
-                {item.items.map((id, index) => {
+                {attribute.items.map((item, index) => {
                   return (
                     <div
                       key={index}
-                      style={{ backgroundColor: id.value }}
-                      className={"swatchAttributeButton"}
-                    />
+                      style={{
+                        backgroundColor: item.value,
+                      }}
+                      className={
+                        "swatchAttributeButton" +
+                        this.checkIfActive(attribute, item)
+                      }
+                      onClick={() => {
+                        this.handleAttributeButtonClick(attribute, item);
+                      }}
+                    ></div>
                   );
                 })}
               </div>
@@ -94,8 +137,10 @@ class ProductDetails extends Component {
   }
   render() {
     let product = this.state.product;
+    if (this.state.noProduct) return <Navigate to="/error" replace={true} />;
     if (!product) return;
     else {
+      console.log(product);
       let price = "";
       product.prices.forEach((element) => {
         if (element.currency.label === this.props.currency.label) {
@@ -127,9 +172,18 @@ class ProductDetails extends Component {
             <div className="detailsPriceValue">{price}</div>
             <div className="detailsAddToCart">
               {product.inStock ? (
-                <button className="addToCartButton">ADD TO CART</button>
+                <button
+                  className="addToCartButton"
+                  onClick={() => {
+                    this.hadnleAddToCartButtonClick();
+                  }}
+                >
+                  ADD TO CART
+                </button>
               ) : (
-                <button className="addToCartButton outOfStock">OUT OF STOCK</button>
+                <button className="addToCartButton outOfStock">
+                  OUT OF STOCK
+                </button>
               )}
             </div>
             <div
@@ -148,4 +202,9 @@ const mapStateToProps = (state) => {
     currency: data.currency,
   };
 };
-export default connect(mapStateToProps)(ProductDetails);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addToCart: (value) => dispatch(addToCart(value)),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails);
