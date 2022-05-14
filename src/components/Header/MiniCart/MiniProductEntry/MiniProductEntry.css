@@ -1,0 +1,91 @@
+.miniProductEntryContainer {
+  display: flex;
+  height: 190px;
+  min-height: 190px;
+  width: 100%;
+  overflow: hidden;
+  flex-direction: row;
+  justify-content: space-between;
+}
+/**/
+.miniProductDetailsContainer {
+  display: flex;
+  max-height: 190px;
+  min-width: 45%;
+  overflow: hidden;
+  flex-direction: column;
+}
+.miniProductDetailsTitle {
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 160%;
+  max-height: 50px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+}
+.miniProductDetailsPrice {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 160%;
+  flex-shrink: 0;
+}
+.miniProductDetailsAttributeContainer {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  column-gap: 20px;
+  max-height: 170px;
+}
+.miniProductDetailsAttributeContainer::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+/**/
+.miniProductSecondaryContainer {
+  display: flex;
+}
+.miniProductQuantitySelector {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 160%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 190px;
+  width: 24px;
+  margin: 0 8px;
+}
+.miniProductQuantityButton {
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 100%;
+  display: block;
+  width: 24px;
+  height: 24px;
+  background-color: white;
+  border: 1px solid black;
+}
+.miniProductQuantityButton:active {
+  color: white;
+  background-color: black;
+}
+.miniProductQuantityValue {
+  display: block;
+  text-align: center;
+}
+.miniProductImageSlider {
+  display: flex;
+  position: relative;
+  height: 190px;
+  width: 120px;
+  justify-content: center;
+}
+.miniProductImage {
+  object-fit: contain;
+  max-height: 100%;
+  max-width: 100%;
+}

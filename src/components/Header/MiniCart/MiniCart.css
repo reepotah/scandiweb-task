@@ -21,9 +21,11 @@
 }
 /**/
 .miniCartListContainer {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  row-gap: 40px;
   margin: 32px 0;
-  max-height: 380px;
+  max-height: 420px;
   overflow-y: scroll;
   scrollbar-width: none;
 }
@@ -80,6 +82,10 @@
   line-height: 120%;
   width: 140px;
   height: 43px;
+  line-height: 43px;
+  text-align: center;
+  color: inherit;
+  text-decoration: inherit;
 }
 .miniCartButton.viewBag {
   border: 1px solid black;
@@ -89,4 +95,7 @@
   color: white;
   border: 1px solid #5ece7b;
   background-color: #5ece7b;
+}
+.miniCartButton.checkOut:active {
+  border: 1px solid black;
 }

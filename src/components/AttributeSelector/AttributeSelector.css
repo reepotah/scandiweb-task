@@ -1,0 +1,52 @@
+.attributeLabel {
+  font-family: "Roboto Condensed";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 18px;
+  display: block;
+  margin: 12px 0 8px 0;
+}
+.textAttributeContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  column-gap: 12px;
+  row-gap: 12px;
+  margin-bottom: 24px;
+}
+.textAttributeButton {
+  user-select: none;
+  display: block;
+  height: 45px;
+  line-height: 45px;
+  min-width: 63px;
+  border: 1px solid black;
+  text-align: center;
+  padding: 0 5px;
+}
+.textAttributeButton.isActive {
+  color: white;
+  background-color: black;
+}
+.swatchAttributeContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  column-gap: 8px;
+  row-gap: 8px;
+  padding: 2px;
+  margin-bottom: 24px;
+}
+.swatchAttributeButton {
+  display: block;
+  position: relative;
+  border: 1px solid black;
+  height: 36px;
+  width: 36px;
+  padding: 2px;
+}
+.swatchAttributeButton.isActive {
+  outline: 2px solid #5ece7b;
+  border: 1px solid white;
+}

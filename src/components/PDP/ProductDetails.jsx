@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { GET_PRODUCT_BY_ID } from "../../api/queries";
 import { addToCart } from "../../redux/cartSlice";
+import AttributeSelector from "../AttributeSelector/AttributeSelector";
 import "./ProductDetails.css";
 
 class ProductDetails extends Component {
@@ -16,22 +17,28 @@ class ProductDetails extends Component {
       image: "",
       selected: {},
     };
+    this.onAttributeClick = this.handleAttributeButtonClick.bind(this);
   }
+
   hadnleAddToCartButtonClick() {
-    /*TODO*/
-    console.log("Add to cart: " + this.state.product.id);
     this.props.addToCart({
-      [this.state.product.id]: [{ selected: this.state.selected, quantity: 1 }],
+      id: this.state.product.id,
+      product: this.state.product,
+      selected: this.state.selected,
+      quantity: 1,
     });
   }
-  handleAttributeButtonClick(attribute, item) {
-    let selected = this.state.selected;
-    selected[attribute.type + ":" + attribute.id] = item;
+
+  handleAttributeButtonClick(attribute, id) {
+    let selected = { ...this.state.selected };
+    selected[attribute.type + ":" + attribute.id] = id;
     this.setState({ selected: selected });
   }
+
   handleGalleryButtonClick(image) {
     this.setState({ image: image });
   }
+
   componentDidMount() {
     let arr = window.location.pathname.split("/");
     let id = arr[arr.length - 1];
@@ -41,7 +48,7 @@ class ProductDetails extends Component {
       else {
         let preSelect = {};
         product.attributes.map((attribute) => {
-          preSelect[attribute.type + ":" + attribute.id] = attribute.items[0];
+          preSelect[attribute.type + ":" + attribute.id] = attribute.items[0].id;
         });
         this.setState({
           product: product,
@@ -51,6 +58,7 @@ class ProductDetails extends Component {
       }
     });
   }
+
   renderGalleryButton(image, id) {
     return (
       <div
@@ -64,83 +72,11 @@ class ProductDetails extends Component {
       </div>
     );
   }
-  checkIfActive(attribute, item) {
-    let selected = this.state.selected;
-    if (selected[attribute.type + ":" + attribute.id])
-      if (selected[attribute.type + ":" + attribute.id] === item)
-        return " isActive";
-    return "";
-  }
-  renderAttributeSelectors(product) {
-    console.log(product.attributes);
-    let string = product.attributes.map((attribute, index) => {
-      switch (attribute.type) {
-        case "text":
-          return (
-            <>
-              <div key={index + "labelT"} className="attributeLabel">
-                {attribute.name}
-              </div>
-              <div key={index + "valueT"} className="textAttributeContainer">
-                {attribute.items.map((item, index2) => {
-                  return (
-                    <div
-                      key={index2}
-                      className={
-                        "textAttributeButton" +
-                        this.checkIfActive(attribute, item)
-                      }
-                      onClick={() => {
-                        this.handleAttributeButtonClick(attribute, item);
-                      }}
-                    >
-                      {item.displayValue}
-                    </div>
-                  );
-                })}
-              </div>
-            </>
-          );
-        case "swatch":
-          return (
-            <>
-              <div key={index + "labelSW"} className="attributeLabel">
-                {attribute.name}
-              </div>
-              <div key={index + "valueSW"} className="swatchAttributeContainer">
-                {attribute.items.map((item, index) => {
-                  return (
-                    <div
-                      key={index}
-                      style={{
-                        backgroundColor: item.value,
-                      }}
-                      className={
-                        "swatchAttributeButton" +
-                        this.checkIfActive(attribute, item)
-                      }
-                      onClick={() => {
-                        this.handleAttributeButtonClick(attribute, item);
-                      }}
-                    ></div>
-                  );
-                })}
-              </div>
-            </>
-          );
-
-        default:
-          return;
-      }
-    });
-    return string;
-  }
   render() {
     let product = this.state.product;
     if (this.state.noProduct) return <Navigate to="/error" replace={true} />;
     if (!product) return;
     else {
-      console.log(product);
       let price = "";
       product.prices.forEach((element) => {
         if (element.currency.label === this.props.currency.label) {
@@ -166,7 +102,11 @@ class ProductDetails extends Component {
               <br /> {product.name}
             </div>
             <div className="detailsAttributeContainer">
-              {this.renderAttributeSelectors(product)}
+              <AttributeSelector
+                attributes={product.attributes}
+                selected={this.state.selected}
+                onClick={this.onAttributeClick}
+              />
             </div>
             <div className="detailsPrice">Price:</div>
             <div className="detailsPriceValue">{price}</div>
@@ -181,9 +121,7 @@ class ProductDetails extends Component {
                   ADD TO CART
                 </button>
               ) : (
-                <button className="addToCartButton outOfStock">
-                  OUT OF STOCK
-                </button>
+                <button className="addToCartButton outOfStock">OUT OF STOCK</button>
               )}
             </div>
             <div
@@ -196,6 +134,7 @@ class ProductDetails extends Component {
     }
   }
 }
+
 const mapStateToProps = (state) => {
   const { data } = state;
   return {

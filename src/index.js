@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { client } from "@tilework/opus";
 import { Provider } from "react-redux";
-import { store } from "./redux/store";
+import { store, saveState } from "./redux/store";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import App from "./App";
 import ProductListing from "./components/PLP/ProductListing";
@@ -11,9 +11,12 @@ import Cart from "./components/Cart/Cart";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
 import "./index.css";
 
-//client.setEndpoint("http://reepotah.asuscomm.com:4000/");
 client.setEndpoint("http://localhost:4000/");
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
+store.subscribe(() => saveState(store.getState()));
+
 root.render(
   //<React.StrictMode>
   <Provider store={store}>
@@ -23,10 +26,7 @@ root.render(
           <Route index element={<ProductListing />}></Route>
           <Route path="*" element={<ErrorPage />}></Route>
           <Route path="/error" element={<ErrorPage />}></Route>
-          <Route
-            path="/productDetails/:productId"
-            element={<ProductDetails />}
-          ></Route>
+          <Route path="/productDetails/:productId" element={<ProductDetails />}></Route>
           <Route path="/cart" element={<Cart />}></Route>
         </Route>
       </Routes>

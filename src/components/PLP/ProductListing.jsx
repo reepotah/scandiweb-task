@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { client } from "@tilework/opus";
-import { GET_CATEGORY_BY_ID } from "../../api/queries";
+import { GET_CATEGORY_BY_ID, GET_PRODUCT_BY_ID } from "../../api/queries";
 import ProductBox from "./ProductBox/ProductBox";
 import "./ProductListing.css";
 import { Link, Navigate } from "react-router-dom";
+import { addToCart } from "../../redux/cartSlice";
 
 class ProductListing extends Component {
   constructor(props) {
@@ -13,11 +14,25 @@ class ProductListing extends Component {
     this.state = { category: "", response: this.props.response };
   }
   handleClick(id) {
-    console.log("Product click: " + id);
     <Navigate to={`/productDetails/${id}`} />;
   }
   handleCartClick(id) {
-    console.log("Cart click: " + id);
+    client.post(GET_PRODUCT_BY_ID(id)).then((result) => {
+      let { product } = result;
+      if (!product) this.setState({ noProduct: true });
+      else {
+        let preSelect = {};
+        product.attributes.map((attribute) => {
+          preSelect[attribute.type + ":" + attribute.id] = attribute.items[0].id;
+        });
+        this.props.addToCart({
+          id: id,
+          product: product,
+          selected: preSelect,
+          quantity: 1,
+        });
+      }
+    });
   }
   renderBox(product) {
     let id = product.id;
@@ -78,4 +93,9 @@ const mapStateToProps = (state) => {
     currency: data.currency,
   };
 };
-export default connect(mapStateToProps)(ProductListing);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addToCart: (value) => dispatch(addToCart(value)),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(ProductListing);

@@ -31,14 +31,7 @@ class Header extends React.Component {
   }
   renderButton(id, category) {
     var state = id === category;
-    return (
-      <NavButton
-        key={id}
-        value={id}
-        isActive={state}
-        onClick={() => this.handleClick(id)}
-      />
-    );
+    return <NavButton key={id} value={id} isActive={state} onClick={() => this.handleClick(id)} />;
   }
   renderDropdown(value) {
     return (
@@ -69,10 +62,7 @@ class Header extends React.Component {
         <img id="logoIcon" src={logoIcon} alt="LOGO" />
         <div className="cartContainer">
           {this.renderMiniCart(this.state.cartVisible)}
-          <button
-            className="cartMiniButton"
-            onClick={() => this.handleCartClick()}
-          >
+          <button className="cartMiniButton" onClick={() => this.handleCartClick()}>
             <img className="cartIcon" src={cartIcon} alt="Cart" />
             {this.props.cartCounter ? (
               <div className="cartMiniCounter">{this.props.cartCounter}</div>
