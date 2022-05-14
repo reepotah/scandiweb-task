@@ -4,7 +4,7 @@ import { client } from "@tilework/opus";
 import { GET_CATEGORY_BY_ID, GET_PRODUCT_BY_ID } from "../../api/queries";
 import ProductBox from "./ProductBox/ProductBox";
 import "./ProductListing.css";
-import { Link, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { addToCart } from "../../redux/cartSlice";
 
 class ProductListing extends Component {
@@ -13,6 +13,7 @@ class ProductListing extends Component {
 
     this.state = { category: "", response: this.props.response };
   }
+
   handleClick(id) {
     <Navigate to={`/productDetails/${id}`} />;
   }
@@ -34,6 +35,22 @@ class ProductListing extends Component {
       }
     });
   }
+
+  getListing(category) {
+    client.post(GET_CATEGORY_BY_ID(category)).then((result) => {
+      this.setState({ response: result });
+    });
+  }
+  componentDidMount() {
+    this.setState({ category: "" });
+  }
+  componentDidUpdate() {
+    if (this.props.category !== this.state.category) {
+      this.getListing(this.props.category);
+      this.setState({ category: this.props.category });
+    }
+  }
+
   renderBox(product) {
     let id = product.id;
     let image = product.gallery[0];
@@ -57,25 +74,12 @@ class ProductListing extends Component {
       />
     );
   }
-  getListing(category) {
-    client.post(GET_CATEGORY_BY_ID(category)).then((result) => {
-      this.setState({ response: result });
-    });
-  }
-  componentDidMount() {
-    this.setState({ category: "" });
-  }
-  componentDidUpdate() {
-    if (this.props.category !== this.state.category) {
-      this.getListing(this.props.category);
-      this.setState({ category: this.props.category });
-    }
-  }
+
   render() {
     return (
       <>
-        <div className="categoryName">{this.props.category}</div>
-        <div className="productListing">
+        <div className="category-name">{this.props.category}</div>
+        <div className="product-listing">
           {!this.state.response
             ? ""
             : this.state.response.category.products.map((product) => {

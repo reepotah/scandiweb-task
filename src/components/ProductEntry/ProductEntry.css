@@ -1,0 +1,209 @@
+.product-entry {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0px 100px;
+  border-top: 1px solid grey;
+  padding: 24px 0px;
+  max-height: 338px;
+}
+.product-entry:last-of-type {
+  border-bottom: 1px solid grey;
+}
+/**/
+.product-entry__details-container {
+  display: block;
+  max-height: 100%;
+}
+.product-entry__details-title {
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 30px;
+}
+.product-entry__details-price {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  margin: 20px 0;
+}
+.product-entry__details-attributes {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  column-gap: 20px;
+  max-height: 175px;
+}
+/**/
+.product-entry__secondary-container {
+  display: flex;
+}
+.product-entry__quantity-selector {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 160%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 288px;
+  width: 45px;
+  margin: 0 24px;
+}
+.product-entry__quantity-button {
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 40px;
+  line-height: 40px;
+  display: block;
+  width: 45px;
+  height: 45px;
+  background-color: white;
+  border: 1px solid black;
+}
+.product-entry__quantity-button:active {
+  color: white;
+  background-color: black;
+}
+.product-entry__quantity-value {
+  display: block;
+  text-align: center;
+}
+.product-entry__image-slider {
+  display: flex;
+  position: relative;
+  height: 288px;
+  width: 200px;
+  justify-content: center;
+}
+.product-entry__product-image {
+  object-fit: contain;
+  max-height: 100%;
+  max-width: 100%;
+}
+/**/
+.product-entry__image-button-group {
+  display: flex;
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  justify-content: space-between;
+  height: 24px;
+  width: 56px;
+}
+.product-entry__image-button {
+  font-size: 20px;
+  line-height: 20px;
+  display: flex;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.73);
+  border: none;
+  transition: 100ms;
+}
+.product-entry__image-button.--right:active {
+  transition: 100ms;
+  transform: translateX(2px);
+}
+.product-entry__image-button.--left:active {
+  transition: 100ms;
+  transform: translateX(-2px);
+}
+
+/*MiniCart style*/
+.product-entry--mini {
+  display: flex;
+  height: 190px;
+  min-height: 190px;
+  width: 100%;
+  overflow: hidden;
+  flex-direction: row;
+  justify-content: space-between;
+}
+/**/
+.product-entry__details-container--mini {
+  display: flex;
+  max-height: 190px;
+  min-width: 45%;
+  overflow: hidden;
+  flex-direction: column;
+}
+.product-entry__details-title--mini {
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 160%;
+  max-height: 50px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+}
+.product-entry__details-price--mini {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 160%;
+  flex-shrink: 0;
+}
+.product-entry__details-attributes--mini {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  column-gap: 20px;
+  max-height: 170px;
+}
+.product-entry__details-attributes--mini::-webkit-scrollbar {
+  width: 2px;
+  background-color: rgb(243, 243, 243);
+}
+.product-entry__details-attributes--mini::-webkit-scrollbar-thumb {
+  background: rgb(215, 215, 215);
+  border-radius: 2px;
+}
+/**/
+.product-entry__secondary-container--mini {
+  display: flex;
+}
+.product-entry__quantity-selector--mini {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 160%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 190px;
+  width: 24px;
+  margin: 0 8px;
+}
+.product-entry__quantity-button--mini {
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 100%;
+  display: block;
+  width: 24px;
+  height: 24px;
+  background-color: white;
+  border: 1px solid black;
+}
+.product-entry__quantity-button--mini:active {
+  color: white;
+  background-color: black;
+}
+.product-entry__quantity-value--mini {
+  display: block;
+  text-align: center;
+}
+.product-entry__image-slider--mini {
+  display: flex;
+  position: relative;
+  height: 190px;
+  width: 120px;
+  justify-content: center;
+}
+.product-entry__product-image--mini {
+  object-fit: contain;
+  max-height: 100%;
+  max-width: 100%;
+}

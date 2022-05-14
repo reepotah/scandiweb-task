@@ -7,7 +7,7 @@ export class NavButton extends React.Component {
     return (
       <Link
         to="/"
-        className={this.props.isActive ? "myButton active" : "myButton"}
+        className={this.props.isActive ? "nav-button --active" : "nav-button"}
         onClick={this.props.onClick}
         dummy={this.props.value}
       >

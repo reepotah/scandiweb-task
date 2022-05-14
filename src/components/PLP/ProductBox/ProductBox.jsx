@@ -5,28 +5,28 @@ import "./ProductBox.css";
 
 export default class ProductBox extends Component {
   render() {
+    let tag = !this.props.inStock ? " --out-of-stock" : "";
     return (
-      <div className="productBoxContainer">
-        <Link
-          to={`/productDetails/${this.props.id}`}
-          className={"productBox" + (!this.props.inStock ? " outOfStock" : "")}
-        >
-          <div className="imageContainer">
-            <img className="productImage" src={this.props.image} alt={this.props.name} />
-            <div className="outOfStockText">{!this.props.inStock ? "Out of stock" : ""}</div>
+      <div className={"product-box" + tag}>
+        <Link to={`/productDetails/${this.props.id}`} className="product-box__body">
+          <div className="product-box__image-container">
+            <img className="product-box__image" src={this.props.image} alt={this.props.name} />
+            <div className="product-box__out-of-stock-text">
+              {!this.props.inStock ? "Out of stock" : ""}
+            </div>
           </div>
-          <div className="productBoxName">{this.props.name}</div>
-          <div className="productBoxPrice">{this.props.price}</div>
+          <div className="product-box__name">{this.props.name}</div>
+          <div className="product-box__price">{this.props.price}</div>
         </Link>
         <div
-          className="productCartButton"
+          className="product-box__cart-button"
           onClick={(event) => {
             event.stopPropagation();
           }}
         >
           <div style={{ width: "inherit", height: "inherit" }} onClick={this.props.onCartClick}>
             <img
-              className="productCartButtonIcon"
+              className="product-box__cart-button-icon"
               src={cartIcon}
               onDragStart={(e) => {
                 e.preventDefault();

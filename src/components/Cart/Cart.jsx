@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { clearCart } from "../../redux/cartSlice";
-import ProductEntry from "./ProductEntry/ProductEntry";
+import ProductEntry from "../ProductEntry/ProductEntry";
 import "./Cart.css";
 
 class Cart extends Component {
@@ -22,11 +22,11 @@ class Cart extends Component {
     }
     return (
       <>
-        <div className="cartTax">Tax 21%: </div>
+        <div className="cart__tax">Tax 21%: </div>
         <b>{symbol + tax.toFixed(2)}</b>
-        <div className="cartQuantity">Quantity: </div>
+        <div className="cart__quantity">Quantity: </div>
         <b>{this.props.cartCounter}</b>
-        <div className="cartTotal">Total: </div>
+        <div className="cart__total">Total: </div>
         <b>{symbol + total.toFixed(2)}</b>
       </>
     );
@@ -36,8 +36,8 @@ class Cart extends Component {
     let cart = this.props.cartContent;
     return (
       <>
-        <div className="cartName">Cart</div>
-        <div className="cartListContainer">
+        <div className="cart__name">Cart</div>
+        <div className="cart__list">
           {cart.map((element, index) => {
             return (
               <ProductEntry
@@ -47,18 +47,19 @@ class Cart extends Component {
                 selected={element.selected}
                 quantity={element.quantity}
                 currency={this.props.currency}
+                isMinified={false}
               />
             );
           })}
         </div>
-        <div className="cartTotalContainer">
+        <div className="cart__total-container">
           {this.calcCartTotal()}
           {cart.length ? (
-            <button className={"cartOrderButton"} onClick={this.props.clearCart}>
+            <button className={"cart__order-button"} onClick={this.props.clearCart}>
               Order
             </button>
           ) : (
-            <button className="cartOrderButton isEmpty">Cart is empty!</button>
+            <button className="cart__order-button --inactive">Cart is empty!</button>
           )}
         </div>
       </>

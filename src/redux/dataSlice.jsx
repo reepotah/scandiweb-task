@@ -24,8 +24,6 @@ export const dataSlice = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
-export const { setCategories, setCurrencies, setCurrentCategory, setCurrency } =
-  dataSlice.actions;
+export const { setCategories, setCurrencies, setCurrentCategory, setCurrency } = dataSlice.actions;
 
 export default dataSlice.reducer;

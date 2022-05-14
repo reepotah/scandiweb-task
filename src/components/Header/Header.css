@@ -1,5 +1,4 @@
-/*Header*/
-.headerBox {
+.header {
   display: flex;
   flex-direction: row;
   background-color: white;
@@ -9,23 +8,22 @@
   width: 100%;
   z-index: 1;
 }
-/*Nav container*/
-.buttonContainer {
+/**/
+.header__button-container {
   display: flex;
   flex-direction: row;
   flex: 1 1 auto;
   margin-left: 100px;
 }
-#logoIcon {
+#logo-icon {
   height: 32px;
   position: fixed;
   left: 50%;
   top: 40px;
   transform: translate(-50%, -50%);
 }
-
-/*Cart container*/
-.cartContainer {
+/**/
+.header__cart-container {
   position: relative;
   font-weight: 500;
   font-size: 18px;
@@ -36,55 +34,7 @@
   margin-right: 100px;
   align-items: center;
 }
-.currencySelector {
-  margin: 0px 16px;
-  height: 100%;
-  align-items: center;
-  display: flex;
-  width: 35px;
-}
-.currencyArrow {
-  display: inline-block;
-  transform: rotate(180deg);
-  height: 20px;
-  line-height: 23px;
-  margin-left: 10px;
-  transition: 200ms;
-}
-.currencyDropdown {
-  display: none;
-  visibility: hidden;
-  flex-direction: column;
-  position: absolute;
-  background-color: white;
-  min-width: max-content;
-  box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
-  min-height: fit-content;
-  top: 63px;
-  transform: translate(-16px);
-  z-index: 2;
-}
-.currencySelector:hover .currencyDropdown {
-  display: flex;
-  visibility: visible;
-}
-.currencySelector:hover .currencyArrow {
-  transition: 100ms;
-  transform: rotate(0deg);
-}
-.dropdownButton {
-  font: inherit;
-  background-color: white;
-  height: 45px;
-  width: 110px;
-  border: none;
-  text-align: left;
-  padding-left: 16px;
-}
-.dropdownButton:hover {
-  background-color: #eeeeee;
-}
-.cartMiniButton {
+.header__cart-button {
   display: flex;
   margin: 0px 10px;
   height: 100%;
@@ -92,15 +42,15 @@
   border: none;
   align-items: center;
 }
-.cartIcon {
+.header__cart-icon {
   width: 20px;
   height: 20px;
 }
-.cartMiniButton:active .cartIcon {
+.header__cart-button:active .header__cart-icon {
   transition: transform 1s cubic-bezier(0.075, 0.82, 0.165, 1);
   transform: translateX(5px);
 }
-.cartMiniCounter {
+.header__cart-counter {
   font-family: "Roboto", sans-serif;
   font-style: normal;
   font-weight: 700;
@@ -116,4 +66,53 @@
   bottom: 14px;
   right: 9px;
   border-radius: 50%;
+}
+/**/
+.header__currency-selector {
+  margin: 0px 16px;
+  height: 100%;
+  align-items: center;
+  display: flex;
+  width: 35px;
+}
+.header__currency-arrow {
+  display: inline-block;
+  transform: rotate(180deg);
+  height: 20px;
+  line-height: 23px;
+  margin-left: 10px;
+  transition: 200ms;
+}
+.header__currency-dropdown {
+  display: none;
+  visibility: hidden;
+  flex-direction: column;
+  position: absolute;
+  background-color: white;
+  min-width: max-content;
+  box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
+  min-height: fit-content;
+  top: 63px;
+  transform: translate(-16px);
+  z-index: 2;
+}
+.header__currency-selector:hover .header__currency-dropdown {
+  display: flex;
+  visibility: visible;
+}
+.header__currency-selector:hover .header__currency-arrow {
+  transition: 100ms;
+  transform: rotate(0deg);
+}
+.header__currency-dropdown-button {
+  font: inherit;
+  background-color: white;
+  height: 45px;
+  width: 110px;
+  border: none;
+  text-align: left;
+  padding-left: 16px;
+}
+.header__currency-dropdown-button:hover {
+  background-color: #eeeeee;
 }

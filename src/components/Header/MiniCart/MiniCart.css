@@ -1,14 +1,4 @@
-.pageCurtain {
-  position: absolute;
-  width: 100vw;
-  height: calc(100vh - 80px);
-  top: 80px;
-  right: -100px;
-  background-color: black;
-  opacity: 0.3;
-}
-/**/
-.miniCartContainer {
+.mini-cart {
   display: block;
   position: absolute;
   top: 80px;
@@ -20,46 +10,34 @@
   padding: 32px 16px;
 }
 /**/
-.miniCartListContainer {
+.mini-cart__list {
   display: flex;
   flex-direction: column;
   row-gap: 40px;
   margin: 32px 0;
   max-height: 420px;
-  overflow-y: scroll;
-  scrollbar-width: none;
+  overflow-y: auto;
+  scrollbar-width: thin;
 }
-.miniCartListContainer::-webkit-scrollbar {
-  width: 0;
-  background: transparent;
+.mini-cart__list::-webkit-scrollbar {
+  width: 3px;
+  background-color: rgb(243, 243, 243);
+}
+.mini-cart__list::-webkit-scrollbar-thumb {
+  background: rgb(215, 215, 215);
+  border-radius: 2px;
 }
 /**/
-.miniProductContainer {
+.mini-cart__empty-placeholder {
   display: flex;
-  height: 190px;
+  min-height: 190px;
   width: 100%;
   overflow: hidden;
-}
-.miniProductContainer.empty {
   align-items: center;
   justify-content: center;
 }
-.productAttributesContainer {
-  display: block;
-  height: 190px;
-  min-width: 136px;
-}
-.quantitySelector {
-  display: block;
-  overflow: hidden;
-}
-.productImageContainer {
-  display: block;
-  height: 190px;
-  min-width: 120px;
-}
 /**/
-.miniCartTotal {
+.mini-cart__total {
   display: grid;
   justify-content: space-between;
   grid-template-columns: repeat(auto-fill, 140px);
@@ -67,15 +45,14 @@
   max-width: 100%;
   max-height: 28px;
 }
-/**/
-.miniCartButtonsContainer {
+.mini-cart__buttons-container {
   display: grid;
   max-height: 43px;
   max-width: 100%;
   justify-content: space-between;
   grid-template-columns: repeat(auto-fill, 140px);
 }
-.miniCartButton {
+.mini-cart__button {
   display: inline-block;
   font-weight: 600;
   font-size: 14px;
@@ -87,15 +64,28 @@
   color: inherit;
   text-decoration: inherit;
 }
-.miniCartButton.viewBag {
+.mini-cart__button.view-bag {
   border: 1px solid black;
   background-color: white;
 }
-.miniCartButton.checkOut {
+.mini-cart__button.view-bag:active {
+  color: white;
+  background-color: black;
+}
+.mini-cart__button.check-out {
   color: white;
   border: 1px solid #5ece7b;
   background-color: #5ece7b;
 }
-.miniCartButton.checkOut:active {
+.mini-cart__button.check-out:active {
   border: 1px solid black;
+}
+.mini-cart__page-curtain {
+  position: absolute;
+  width: 100vw;
+  height: calc(100vh - 80px);
+  top: 80px;
+  right: -100px;
+  background-color: black;
+  opacity: 0.3;
 }

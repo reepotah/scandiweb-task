@@ -11,13 +11,11 @@ class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      response: undefined,
-      category: "",
-      response2: undefined,
       cartVisible: false,
     };
   }
-  handleClick(id) {
+
+  handleNavButtonClick(id) {
     this.props.setCurrentCategory(id);
   }
   handleCurrencyClick(id) {
@@ -26,54 +24,57 @@ class Header extends React.Component {
   handleCartClick() {
     this.setState({ cartVisible: !this.state.cartVisible });
   }
-  handleClickCurtain() {
+  handleCurtainClick() {
     this.setState({ cartVisible: false });
   }
+
   renderButton(id, category) {
     var state = id === category;
-    return <NavButton key={id} value={id} isActive={state} onClick={() => this.handleClick(id)} />;
+    return (
+      <NavButton
+        key={id}
+        value={id}
+        isActive={state}
+        onClick={() => this.handleNavButtonClick(id)}
+      />
+    );
   }
   renderDropdown(value) {
     return (
       <button
         key={value.label}
-        className="dropdownButton"
+        className="header__currency-dropdown-button"
         onClick={() => this.handleCurrencyClick(value)}
       >
         {value.symbol + " " + value.label}
       </button>
     );
   }
-  renderMiniCart(state) {
-    if (!state) return;
-    else return <MiniCart onClick={() => this.handleClickCurtain()} />;
-  }
-  componentDidMount() {}
-  componentDidUpdate() {}
+
   render() {
-    const category = this.props.category;
+    let category = this.props.category;
+    let display = this.props.cartCounter ? "inline-block" : "none";
+    let miniCart = this.state.cartVisible;
     return (
-      <div className="headerBox">
-        <div className="buttonContainer">
+      <div className="header">
+        <div className="header__button-container">
           {this.props.categories.map(({ name }) => {
             return this.renderButton(name, category);
           })}
         </div>
-        <img id="logoIcon" src={logoIcon} alt="LOGO" />
-        <div className="cartContainer">
-          {this.renderMiniCart(this.state.cartVisible)}
-          <button className="cartMiniButton" onClick={() => this.handleCartClick()}>
-            <img className="cartIcon" src={cartIcon} alt="Cart" />
-            {this.props.cartCounter ? (
-              <div className="cartMiniCounter">{this.props.cartCounter}</div>
-            ) : (
-              ""
-            )}
+        <img id="logo-icon" src={logoIcon} alt="LOGO" />
+        <div className="header__cart-container">
+          {miniCart && <MiniCart onClick={() => this.handleCurtainClick()} />}
+          <button className="header__cart-button" onClick={() => this.handleCartClick()}>
+            <img className="header__cart-icon" src={cartIcon} alt="Cart" />
+            <div style={{ display: display }} className="header__cart-counter">
+              {this.props.cartCounter}
+            </div>
           </button>
-          <div className="currencySelector">
+          <div className="header__currency-selector">
             {this.props.currency.symbol}
-            <span className="currencyArrow">^</span>
-            <div className="currencyDropdown">
+            <span className="header__currency-arrow">^</span>
+            <div className="header__currency-dropdown">
               {this.props.currencies.map((value) => {
                 return this.renderDropdown(value);
               })}
@@ -85,8 +86,7 @@ class Header extends React.Component {
   }
 }
 const mapStateToProps = (state) => {
-  const { data } = state;
-  const { cart } = state;
+  const { data, cart } = state;
   return {
     categories: data.categories,
     currencies: data.currencies,

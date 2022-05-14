@@ -1,4 +1,4 @@
-.cartName {
+.cart__name {
   display: block;
   font-weight: 700;
   font-size: 32px;
@@ -6,10 +6,10 @@
   text-transform: uppercase;
   margin: 80px auto 55px 100px;
 }
-.cartListContainer {
+.cart__list {
   display: block;
 }
-.cartTotalContainer {
+.cart__total-container {
   display: grid;
   grid-template-columns: 1fr 2fr;
   column-gap: 5px;
@@ -22,17 +22,17 @@
   font-size: 24px;
   line-height: 28px;
 }
-.cartTax {
+.cart__tax {
   display: block;
 }
-.cartQuantity {
+.cart__quantity {
   display: block;
 }
-.cartTotal {
+.cart__total {
   display: block;
   font-weight: 500;
 }
-.cartOrderButton {
+.cart__order-button {
   display: inline-block;
   font-weight: 600;
   font-size: 14px;
@@ -46,10 +46,10 @@
   grid-column-start: 1;
   grid-column-end: 3;
 }
-.cartOrderButton:active {
+.cart__order-button:active {
   border: 1px solid black;
 }
-.cartOrderButton.isEmpty {
+.cart__order-button.--inactive {
   color: black;
   background-color: white;
   border: 1px solid black;

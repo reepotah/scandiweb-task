@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { changeAttributes, decreaseQuantity, increaseQuantity } from "../../../redux/cartSlice";
-import AttributeSelector from "../../AttributeSelector/AttributeSelector";
+import { changeAttributes, decreaseQuantity, increaseQuantity } from "../../redux/cartSlice";
+import AttributeSelector from "../AttributeSelector/AttributeSelector";
 import "./ProductEntry.css";
 
 class ProductEntry extends Component {
@@ -50,6 +50,8 @@ class ProductEntry extends Component {
     increment ? this.props.increaseQuantity(item) : this.props.decreaseQuantity(item);
   }
   render() {
+    let isMinified = this.props.isMinified;
+    let miniTag = isMinified ? "--mini" : "";
     let product = this.props.product;
     let price = "";
     product.prices.forEach((element) => {
@@ -58,34 +60,35 @@ class ProductEntry extends Component {
       }
     });
     return (
-      <div className="productEntryContainer">
-        <div className="cartDetailsContainer">
-          <div className="cartDetailsTitle">
+      <div className={"product-entry" + miniTag}>
+        <div className={"product-entry__details-container" + miniTag}>
+          <div className={"product-entry__details-title" + miniTag}>
             <b>{product.brand}</b>
             <br /> {product.name}
           </div>
-          <div className="cartDetailsPrice">{price}</div>
-          <div className="cartDetailsAttributeContainer">
+          <div className={"product-entry__details-price" + miniTag}>{price}</div>
+          <div className={"product-entry__details-attributes" + miniTag}>
             <AttributeSelector
               attributes={product.attributes}
               selected={this.props.selected}
               onClick={this.onAttributeClick}
+              isMinified={isMinified}
             />
           </div>
         </div>
-        <div className="cartSecondaryContainer">
-          <div className="cartQuantitySelector">
+        <div className={"product-entry__secondary-container" + miniTag}>
+          <div className={"product-entry__quantity-selector" + miniTag}>
             <button
-              className="cartQuantityButton"
+              className={"product-entry__quantity-button" + miniTag}
               onClick={() => {
                 this.handleQuantityButtonClick(true);
               }}
             >
               +
             </button>
-            <div className="cartQuantityValue">{this.props.quantity}</div>
+            <div className={"product-entry__quantity-value" + miniTag}>{this.props.quantity}</div>
             <button
-              className="cartQuantityButton"
+              className={"product-entry__quantity-button" + miniTag}
               onClick={() => {
                 this.handleQuantityButtonClick(false);
               }}
@@ -93,30 +96,32 @@ class ProductEntry extends Component {
               -
             </button>
           </div>
-          <div className="cartImageSlider">
+          <div className={"product-entry__image-slider" + miniTag}>
             <img
-              className="cartProductImg"
+              className={"product-entry__product-image" + miniTag}
               src={product.gallery[this.state.imageIndex]}
               alt={product.id}
             />
-            <div className="cartImageButtonGroup">
-              <button
-                className="cartImageButton iLeft"
-                onClick={() => {
-                  this.handleImageButtonClick(false);
-                }}
-              >
-                &lt;
-              </button>
-              <button
-                className="cartImageButton iRight"
-                onClick={() => {
-                  this.handleImageButtonClick(true);
-                }}
-              >
-                &gt;
-              </button>
-            </div>
+            {product.gallery.length > 1 && !isMinified && (
+              <div className={"product-entry__image-button-group" + miniTag}>
+                <button
+                  className={"product-entry__image-button --left" + miniTag}
+                  onClick={() => {
+                    this.handleImageButtonClick(false);
+                  }}
+                >
+                  &lt;
+                </button>
+                <button
+                  className={"product-entry__image-button --right" + miniTag}
+                  onClick={() => {
+                    this.handleImageButtonClick(true);
+                  }}
+                >
+                  &gt;
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-.errorPageContainer {
+.error-page {
   display: flex;
   flex-direction: column;
   margin: 10vmin auto 20vmin;
@@ -6,7 +6,7 @@
   font-size: 5vmin;
   align-items: center;
 }
-.errorPageBody {
+.error-page-body {
   transform: rotate(90deg);
   height: 50vmin;
   width: 50vmin;

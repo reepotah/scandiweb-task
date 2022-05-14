@@ -28,13 +28,11 @@ class ProductDetails extends Component {
       quantity: 1,
     });
   }
-
   handleAttributeButtonClick(attribute, id) {
     let selected = { ...this.state.selected };
     selected[attribute.type + ":" + attribute.id] = id;
     this.setState({ selected: selected });
   }
-
   handleGalleryButtonClick(image) {
     this.setState({ image: image });
   }
@@ -63,15 +61,16 @@ class ProductDetails extends Component {
     return (
       <div
         key={id}
-        className="galleryButton"
+        className="product-page__gallery-button"
         onClick={() => {
           this.handleGalleryButtonClick(image);
         }}
       >
-        <img className="galleryButtonThumbnail" src={image} />
+        <img className="product-page__gallery-thumbnail" src={image} />
       </div>
     );
   }
+
   render() {
     let product = this.state.product;
     if (this.state.noProduct) return <Navigate to="/error" replace={true} />;
@@ -84,48 +83,47 @@ class ProductDetails extends Component {
         }
       });
       return (
-        <div className="pageContainer">
-          <div className="galleryContainer">
-            <div className="gallerySelector">
+        <div className="product-page">
+          <div className="product-page__gallery">
+            <div className="product-page__gallery-selector">
               {product.gallery.map((img, index) => {
                 return this.renderGalleryButton(img, index);
               })}
             </div>
 
-            <div className="galleryDisplay">
-              <img className="galleryDisplayImage" src={this.state.image} />
+            <div className="product-page__gallery-image-container">
+              <img className="product-page__gallery-image" src={this.state.image} />
             </div>
           </div>
-          <div className="detailsContainer">
-            <div className="detailsTitle">
+          <div className="product-page__details">
+            <div className="product-page__details-title">
               <b>{product.brand}</b>
               <br /> {product.name}
             </div>
-            <div className="detailsAttributeContainer">
+            <div className="product-page__details-attributes">
               <AttributeSelector
                 attributes={product.attributes}
                 selected={this.state.selected}
                 onClick={this.onAttributeClick}
+                isMinified={false}
               />
             </div>
-            <div className="detailsPrice">Price:</div>
-            <div className="detailsPriceValue">{price}</div>
-            <div className="detailsAddToCart">
-              {product.inStock ? (
-                <button
-                  className="addToCartButton"
-                  onClick={() => {
-                    this.hadnleAddToCartButtonClick();
-                  }}
-                >
-                  ADD TO CART
-                </button>
-              ) : (
-                <button className="addToCartButton outOfStock">OUT OF STOCK</button>
-              )}
-            </div>
+            <div className="product-page__details-price">Price:</div>
+            <div className="product-page__details-price-value">{price}</div>
+            {product.inStock ? (
+              <button
+                className="product-page__add-to-cart-button"
+                onClick={() => {
+                  this.hadnleAddToCartButtonClick();
+                }}
+              >
+                ADD TO CART
+              </button>
+            ) : (
+              <button className="product-page__add-to-cart-button --inactive">OUT OF STOCK</button>
+            )}
             <div
-              className="detailsText"
+              className="product-page__details-text"
               dangerouslySetInnerHTML={{ __html: product.description }}
             />
           </div>

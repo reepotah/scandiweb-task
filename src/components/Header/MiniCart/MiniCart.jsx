@@ -7,8 +7,8 @@ import {
   decreaseQuantity,
   increaseQuantity,
 } from "../../../redux/cartSlice";
+import ProductEntry from "../../ProductEntry/ProductEntry";
 import "./MiniCart.css";
-import MiniProductEntry from "./MiniProductEntry/MiniProductEntry";
 
 class MiniCart extends Component {
   calculateTotal() {
@@ -25,66 +25,51 @@ class MiniCart extends Component {
     }
     return total.toFixed(2);
   }
-  renderList(count) {
-    if (!count) return <div className="miniProductContainer empty">Your bag is empty!</div>;
-    else
-      return (
-        <>
-          <div className="miniProductContainer">
-            <div className="productAttributesContainer">StuffContainer</div>
-            <div className="quantitySelector">QuantityContainer</div>
-            <div className="productImageContainer">ImageContainer</div>
-          </div>
-          <div className="miniProductContainer">2</div>
-
-          <div className="miniProductContainer">3</div>
-          <div className="miniProductContainer">4</div>
-        </>
-      );
-  }
   render() {
     let cart = this.props.cartContent;
     let count = this.props.cartCounter;
     return (
       <>
-        <div className="miniCartContainer">
-          <div className="cartTitle">
+        <div className="mini-cart">
+          <div className="mini-cart__title">
             <b>My Bag,</b> {this.props.cartCounter} items
           </div>
-          <div className="miniCartListContainer">
-            {cart.map((element, index) => {
-              if (!count)
-                return <div className="miniProductContainer empty">Your bag is empty!</div>;
-              else
+          <div className="mini-cart__list">
+            {!count ? (
+              <div className="mini-cart__empty-placeholder">Your bag is empty!</div>
+            ) : (
+              cart.map((element, index) => {
                 return (
-                  <MiniProductEntry
+                  <ProductEntry
                     key={index}
                     id={element.id}
                     product={element.product}
                     selected={element.selected}
                     quantity={element.quantity}
                     currency={this.props.currency}
+                    isMinified={true}
                   />
                 );
-            })}
+              })
+            )}
           </div>
-          <div className="miniCartTotal">
+          <div className="mini-cart__total">
             <b>Total:</b>
             <b style={{ textAlign: "end" }}>
               {this.props.currency.symbol}
               {this.calculateTotal()}
             </b>
           </div>
-          <div className="miniCartButtonsContainer">
-            <Link className="miniCartButton viewBag" to="/cart" onClick={this.props.onClick}>
+          <div className="mini-cart__buttons-container">
+            <Link className="mini-cart__button view-bag" to="/cart" onClick={this.props.onClick}>
               VIEW BAG{" "}
             </Link>
-            <button className="miniCartButton checkOut" onClick={this.props.clearCart}>
+            <button className="mini-cart__button check-out" onClick={this.props.clearCart}>
               CHECK OUT
             </button>
           </div>
         </div>
-        <div className="pageCurtain" onClick={this.props.onClick} />
+        <div className="mini-cart__page-curtain" onClick={this.props.onClick} />
       </>
     );
   }

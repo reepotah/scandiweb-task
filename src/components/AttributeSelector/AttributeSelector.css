@@ -1,35 +1,41 @@
-.attributeLabel {
+.attribute-selector {
+  display: block;
+}
+.attribute-selector__label {
   font-family: "Roboto Condensed";
   font-style: normal;
   font-weight: 700;
   font-size: 18px;
   line-height: 18px;
   display: block;
-  margin: 12px 0 8px 0;
+  text-transform: uppercase;
 }
-.textAttributeContainer {
+.attribute-selector__text-container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   column-gap: 12px;
   row-gap: 12px;
-  margin-bottom: 24px;
+  margin-top: 8px;
+  margin-bottom: 16px;
 }
-.textAttributeButton {
+.attribute-selector__text-button {
   user-select: none;
-  display: block;
+  display: flex;
   height: 45px;
-  line-height: 45px;
+  line-height: 16px;
   min-width: 63px;
   border: 1px solid black;
   text-align: center;
   padding: 0 5px;
+  justify-content: center;
+  align-items: center;
 }
-.textAttributeButton.isActive {
+.attribute-selector__text-button.--active {
   color: white;
   background-color: black;
 }
-.swatchAttributeContainer {
+.attribute-selector__swatch-container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -38,7 +44,7 @@
   padding: 2px;
   margin-bottom: 24px;
 }
-.swatchAttributeButton {
+.attribute-selector__swatch-button {
   display: block;
   position: relative;
   border: 1px solid black;
@@ -46,7 +52,67 @@
   width: 36px;
   padding: 2px;
 }
-.swatchAttributeButton.isActive {
+.attribute-selector__swatch-button.--active {
   outline: 2px solid #5ece7b;
+  border: 1px solid white;
+}
+
+/*MiniCart style*/
+.attribute-selector--mini {
+  display: block;
+}
+.attribute-selector__label--mini {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  display: block;
+  margin: 8px 0;
+  overflow: hidden;
+  min-height: 16px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.attribute-selector__text-container--mini {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  column-gap: 8px;
+  row-gap: 4px;
+}
+.attribute-selector__text-button--mini {
+  user-select: none;
+  display: flex;
+  height: 24px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 14px;
+  min-width: 24px;
+  border: 1px solid black;
+  text-align: center;
+  padding: 0 3px;
+  justify-content: center;
+  align-items: center;
+}
+.attribute-selector__text-button--mini.--active {
+  color: white;
+  background-color: black;
+}
+.attribute-selector__swatch-container--mini {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  column-gap: 8px;
+  row-gap: 6px;
+  padding: 1px;
+}
+.attribute-selector__swatch-button--mini {
+  display: block;
+  position: relative;
+  border: 1px solid black;
+  height: 16px;
+  width: 16px;
+}
+.attribute-selector__swatch-button--mini.--active {
+  outline: 1px solid #5ece7b;
   border: 1px solid white;
 }
