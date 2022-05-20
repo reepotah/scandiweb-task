@@ -1,5 +1,5 @@
-# Ecommerce frontend test assignment
-#### for Junior React Developer position in Scandiweb.
+# eCommerce frontend test assignment
+#### by Nikolay Kashuba for Junior React Developer position in Scandiweb.
 
 ### About
 This is my first serious JS project. I had fun and learned a lot, the process itself was pretty exciting as with every change there's as much stuff happening on screen as under the hood.
