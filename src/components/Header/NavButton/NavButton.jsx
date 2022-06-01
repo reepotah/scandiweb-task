@@ -6,7 +6,7 @@ export class NavButton extends React.Component {
   render() {
     return (
       <Link
-        to="/"
+        to={"/categories/" + this.props.value}
         className={this.props.isActive ? "nav-button --active" : "nav-button"}
         onClick={this.props.onClick}
         dummy={this.props.value}

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { cartIcon } from "../../../assets/assets";
 import "./ProductBox.css";
 
@@ -8,9 +8,16 @@ export default class ProductBox extends Component {
     let tag = !this.props.inStock ? " --out-of-stock" : "";
     return (
       <div className={"product-box" + tag}>
-        <Link to={`/productDetails/${this.props.id}`} className="product-box__body">
+        <Link
+          to={`/productDetails/${this.props.id}`}
+          className="product-box__body"
+        >
           <div className="product-box__image-container">
-            <img className="product-box__image" src={this.props.image} alt={this.props.name} />
+            <img
+              className="product-box__image"
+              src={this.props.image}
+              alt={this.props.name}
+            />
             <div className="product-box__out-of-stock-text">
               {!this.props.inStock ? "Out of stock" : ""}
             </div>
@@ -19,15 +26,19 @@ export default class ProductBox extends Component {
           <div className="product-box__price">{this.props.price}</div>
         </Link>
         <div
-          className="product-box__cart-button"
+          className="product-box__cart-button-container"
           onClick={(event) => {
             event.stopPropagation();
           }}
         >
-          <div style={{ width: "inherit", height: "inherit" }} onClick={this.props.onCartClick}>
+          <div
+            className="product-box__cart-button"
+            onClick={this.props.onCartClick}
+          >
             <img
               className="product-box__cart-button-icon"
               src={cartIcon}
+              alt="Cart"
               onDragStart={(e) => {
                 e.preventDefault();
               }}

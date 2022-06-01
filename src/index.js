@@ -9,6 +9,7 @@ import ProductListing from "./components/PLP/ProductListing";
 import ProductDetails from "./components/PDP/ProductDetails";
 import Cart from "./components/Cart/Cart";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
+import Spinner from "./components/Spinner/Spinner";
 import "./index.css";
 
 client.setEndpoint("http://localhost:4000/");
@@ -18,19 +19,18 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 store.subscribe(() => saveState(store.getState()));
 
 root.render(
-  //<React.StrictMode>
   <Provider store={store}>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
-          <Route index element={<ProductListing />}></Route>
-          <Route path="*" element={<ErrorPage />}></Route>
-          <Route path="/error" element={<ErrorPage />}></Route>
-          <Route path="/productDetails/:productId" element={<ProductDetails />}></Route>
-          <Route path="/cart" element={<Cart />}></Route>
+          <Route index element={<Spinner />} />
+          <Route path="*" element={<ErrorPage />} />
+          <Route path="/error" element={<ErrorPage />} />
+          <Route path="/categories/:categoryId" element={<ProductListing />} />
+          <Route path="/productDetails/:productId" element={<ProductDetails />} />
+          <Route path="/cart" element={<Cart />} />
         </Route>
       </Routes>
     </BrowserRouter>
   </Provider>
-  //</React.StrictMode>
 );

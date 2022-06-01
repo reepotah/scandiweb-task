@@ -11,7 +11,9 @@ class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cartVisible: false,
+      overlay: false,
+      currencySwitcher: false,
+      miniCart: false,
     };
   }
 
@@ -21,23 +23,40 @@ class Header extends React.Component {
   handleCurrencyClick(id) {
     this.props.setCurrency(id);
   }
-  handleCartClick() {
-    this.setState({ cartVisible: !this.state.cartVisible });
+  handleCartButtonClick() {
+    let overlay = this.state.overlay;
+    let currencySwitcher = this.state.currencySwitcher;
+    let miniCart = this.state.miniCart;
+
+    if (!overlay || (overlay && miniCart)) this.setState({ overlay: !overlay, miniCart: !miniCart });
+    else if (overlay && currencySwitcher)
+      this.setState({
+        overlay: true,
+        currencySwitcher: false,
+        miniCart: true,
+      });
+  }
+  handleSwitcherButtonClick() {
+    let overlay = this.state.overlay;
+    let currencySwitcher = this.state.currencySwitcher;
+    let miniCart = this.state.miniCart;
+
+    if (!overlay || (overlay && currencySwitcher))
+      this.setState({ overlay: !overlay, currencySwitcher: !currencySwitcher });
+    else if (overlay && miniCart)
+      this.setState({
+        overlay: true,
+        currencySwitcher: true,
+        miniCart: false,
+      });
   }
   handleCurtainClick() {
-    this.setState({ cartVisible: false });
+    this.setState({ overlay: false, currencySwitcher: false, miniCart: false });
   }
 
   renderButton(id, category) {
     var state = id === category;
-    return (
-      <NavButton
-        key={id}
-        value={id}
-        isActive={state}
-        onClick={() => this.handleNavButtonClick(id)}
-      />
-    );
+    return <NavButton key={id} value={id} isActive={state} onClick={() => this.handleNavButtonClick(id)} />;
   }
   renderDropdown(value) {
     return (
@@ -50,11 +69,14 @@ class Header extends React.Component {
       </button>
     );
   }
-
+  componentDidMount() {}
+  componentDidUpdate() {}
   render() {
+    let overlay = this.state.overlay;
+    let currencySwitcher = this.state.currencySwitcher;
+    let miniCart = this.state.miniCart;
     let category = this.props.category;
-    let display = this.props.cartCounter ? "inline-block" : "none";
-    let miniCart = this.state.cartVisible;
+    let displayCounter = !!this.props.cartCounter;
     return (
       <div className="header">
         <div className="header__button-container">
@@ -65,22 +87,28 @@ class Header extends React.Component {
         <img id="logo-icon" src={logoIcon} alt="LOGO" />
         <div className="header__cart-container">
           {miniCart && <MiniCart onClick={() => this.handleCurtainClick()} />}
-          <button className="header__cart-button" onClick={() => this.handleCartClick()}>
+          <button className="header__cart-button" onClick={() => this.handleCartButtonClick()}>
             <img className="header__cart-icon" src={cartIcon} alt="Cart" />
-            <div style={{ display: display }} className="header__cart-counter">
-              {this.props.cartCounter}
-            </div>
+            {displayCounter && <div className="header__cart-counter">{this.props.cartCounter}</div>}
           </button>
-          <div className="header__currency-selector">
+          <div className="header__currency-selector" onClick={() => this.handleSwitcherButtonClick()}>
             {this.props.currency.symbol}
-            <span className="header__currency-arrow">^</span>
-            <div className="header__currency-dropdown">
-              {this.props.currencies.map((value) => {
-                return this.renderDropdown(value);
-              })}
-            </div>
+            <span className={"header__currency-arrow" + (currencySwitcher ? " --rotate" : "")}>^</span>
+            {currencySwitcher && (
+              <div className="header__currency-dropdown">
+                {this.props.currencies.map((value) => {
+                  return this.renderDropdown(value);
+                })}
+              </div>
+            )}
           </div>
         </div>
+        {overlay && (
+          <div
+            className={"header__page-curtain" + (miniCart ? " --gray" : "")}
+            onClick={() => this.handleCurtainClick()}
+          />
+        )}
       </div>
     );
   }

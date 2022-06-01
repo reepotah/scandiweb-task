@@ -1,15 +1,10 @@
 import { client } from "@tilework/opus";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { GET_CATEGORIES, GET_CURRENCIES } from "./api/queries";
 import Header from "./components/Header/Header";
-import {
-  setCategories,
-  setCurrencies,
-  setCurrency,
-  setCurrentCategory,
-} from "./redux/dataSlice";
+import { setCategories, setCurrencies, setCurrency, setCurrentCategory } from "./redux/dataSlice";
 
 class App extends Component {
   componentDidMount() {
@@ -22,6 +17,7 @@ class App extends Component {
       this.props.currency(currencies[0]);
     });
   }
+  shouldComponentUpdate = () => false;
   render() {
     return (
       <div className="appContainer">

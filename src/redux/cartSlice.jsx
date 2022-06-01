@@ -15,12 +15,15 @@ export const cartSlice = createSlice({
         let found = cart.some((entry, index, array) => {
           if (
             entry.id === item.id &&
-            Object.keys(entry.selected).toString() === Object.keys(item.selected).toString() &&
-            Object.values(entry.selected).toString() === Object.values(item.selected).toString()
+            Object.keys(entry.selected).toString() ===
+              Object.keys(item.selected).toString() &&
+            Object.values(entry.selected).toString() ===
+              Object.values(item.selected).toString()
           ) {
             entry.quantity++;
             return true;
           }
+          return false;
         });
         if (!found) {
           state.cartContent.push(action.payload);
@@ -38,13 +41,16 @@ export const cartSlice = createSlice({
         let found = cart.some((entry, index, array) => {
           if (
             entry.id === item.id &&
-            Object.keys(entry.selected).toString() === Object.keys(item.selected).toString() &&
-            Object.values(entry.selected).toString() === Object.values(item.selected).toString()
+            Object.keys(entry.selected).toString() ===
+              Object.keys(item.selected).toString() &&
+            Object.values(entry.selected).toString() ===
+              Object.values(item.selected).toString()
           ) {
             entry.quantity++;
             state.cartCounter++;
             return true;
           }
+          return false;
         });
         if (!found) {
           return;
@@ -61,8 +67,10 @@ export const cartSlice = createSlice({
         let found = cart.some((entry, index, array) => {
           if (
             entry.id === item.id &&
-            Object.keys(entry.selected).toString() === Object.keys(item.selected).toString() &&
-            Object.values(entry.selected).toString() === Object.values(item.selected).toString()
+            Object.keys(entry.selected).toString() ===
+              Object.keys(item.selected).toString() &&
+            Object.values(entry.selected).toString() ===
+              Object.values(item.selected).toString()
           ) {
             if (entry.quantity > 1) {
               entry.quantity--;
@@ -73,6 +81,7 @@ export const cartSlice = createSlice({
               state.cartCounter--;
             }
           }
+          return false;
         });
         if (!found) {
           return;
@@ -91,24 +100,30 @@ export const cartSlice = createSlice({
         let foundDupes = cart.some((entry, index, array) => {
           if (
             entry.id === item.id &&
-            Object.keys(entry.selected).toString() === Object.keys(newSelected).toString() &&
-            Object.values(entry.selected).toString() === Object.values(newSelected).toString()
+            Object.keys(entry.selected).toString() ===
+              Object.keys(newSelected).toString() &&
+            Object.values(entry.selected).toString() ===
+              Object.values(newSelected).toString()
           ) {
             dupeQuantity = entry.quantity;
             cart.splice(index, 1);
             return true;
           }
+          return false;
         });
         let found = cart.some((entry, index, array) => {
           if (
             entry.id === item.id &&
-            Object.keys(entry.selected).toString() === Object.keys(item.selected).toString() &&
-            Object.values(entry.selected).toString() === Object.values(item.selected).toString()
+            Object.keys(entry.selected).toString() ===
+              Object.keys(item.selected).toString() &&
+            Object.values(entry.selected).toString() ===
+              Object.values(item.selected).toString()
           ) {
             entry.selected = newSelected;
             if (foundDupes) entry.quantity += dupeQuantity;
             return true;
           }
+          return false;
         });
         if (!found) {
           return;
@@ -124,6 +139,11 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, increaseQuantity, decreaseQuantity, changeAttributes, clearCart } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  increaseQuantity,
+  decreaseQuantity,
+  changeAttributes,
+  clearCart,
+} = cartSlice.actions;
 export default cartSlice.reducer;

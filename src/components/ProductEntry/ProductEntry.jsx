@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { changeAttributes, decreaseQuantity, increaseQuantity } from "../../redux/cartSlice";
+import {
+  changeAttributes,
+  decreaseQuantity,
+  increaseQuantity,
+} from "../../redux/cartSlice";
 import AttributeSelector from "../AttributeSelector/AttributeSelector";
 import "./ProductEntry.css";
 
@@ -27,6 +31,7 @@ class ProductEntry extends Component {
     this.setState({ imageIndex: imageIndex });
   }
   handleAttributeButtonClick(attribute, itemId) {
+    if (this.props.isMinified) return;
     let item = {
       id: this.props.product.id,
       product: this.props.product,
@@ -47,7 +52,9 @@ class ProductEntry extends Component {
       quantity: this.props.quantity,
     };
 
-    increment ? this.props.increaseQuantity(item) : this.props.decreaseQuantity(item);
+    increment
+      ? this.props.increaseQuantity(item)
+      : this.props.decreaseQuantity(item);
   }
   render() {
     let isMinified = this.props.isMinified;
@@ -66,7 +73,9 @@ class ProductEntry extends Component {
             <b>{product.brand}</b>
             <br /> {product.name}
           </div>
-          <div className={"product-entry__details-price" + miniTag}>{price}</div>
+          <div className={"product-entry__details-price" + miniTag}>
+            {price}
+          </div>
           <div className={"product-entry__details-attributes" + miniTag}>
             <AttributeSelector
               attributes={product.attributes}
@@ -86,7 +95,9 @@ class ProductEntry extends Component {
             >
               +
             </button>
-            <div className={"product-entry__quantity-value" + miniTag}>{this.props.quantity}</div>
+            <div className={"product-entry__quantity-value" + miniTag}>
+              {this.props.quantity}
+            </div>
             <button
               className={"product-entry__quantity-button" + miniTag}
               onClick={() => {

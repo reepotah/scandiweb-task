@@ -6,12 +6,13 @@ import ProductBox from "./ProductBox/ProductBox";
 import "./ProductListing.css";
 import { Navigate } from "react-router-dom";
 import { addToCart } from "../../redux/cartSlice";
+import { setCurrentCategory } from "../../redux/dataSlice";
 
 class ProductListing extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { category: "", response: this.props.response };
+    this.state = { category: null, response: null, error: false };
   }
 
   handleClick(id) {
@@ -25,6 +26,7 @@ class ProductListing extends Component {
         let preSelect = {};
         product.attributes.map((attribute) => {
           preSelect[attribute.type + ":" + attribute.id] = attribute.items[0].id;
+          return true;
         });
         this.props.addToCart({
           id: id,
@@ -41,10 +43,37 @@ class ProductListing extends Component {
       this.setState({ response: result });
     });
   }
+  handleCategoryUrl() {
+    if (this.state.error) {
+      this.setState({ error: false });
+      return;
+    }
+    let link = window.location.pathname.split("/");
+    if (!this.props.categories.length) {
+      return;
+    }
+    if (link.length && link.length === 3 && link[1] === "categories") {
+      let found = this.props.categories.some((entry) => {
+        return entry.name === link[2] ? true : false;
+      });
+      if (found) {
+        this.props.setCurrentCategory(link[2]);
+        return;
+      } else {
+        this.setState({ error: true });
+        return;
+      }
+    }
+  }
   componentDidMount() {
-    this.setState({ category: "" });
+    this.handleCategoryUrl();
+    if (this.props.category !== this.state.category) {
+      this.getListing(this.props.category);
+      this.setState({ category: this.props.category });
+    }
   }
   componentDidUpdate() {
+    this.handleCategoryUrl();
     if (this.props.category !== this.state.category) {
       this.getListing(this.props.category);
       this.setState({ category: this.props.category });
@@ -76,6 +105,9 @@ class ProductListing extends Component {
   }
 
   render() {
+    if (this.state.error) {
+      return <Navigate to="/error" replace={true} />;
+    }
     return (
       <>
         <div className="category-name">{this.props.category}</div>
@@ -93,12 +125,14 @@ class ProductListing extends Component {
 const mapStateToProps = (state) => {
   const { data } = state;
   return {
+    categories: data.categories,
     category: data.currentCategory,
     currency: data.currency,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
+    setCurrentCategory: (value) => dispatch(setCurrentCategory(value)),
     addToCart: (value) => dispatch(addToCart(value)),
   };
 };

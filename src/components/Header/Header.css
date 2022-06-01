@@ -74,6 +74,7 @@
   align-items: center;
   display: flex;
   width: 35px;
+  user-select: none;
 }
 .header__currency-arrow {
   display: inline-block;
@@ -83,9 +84,12 @@
   margin-left: 10px;
   transition: 200ms;
 }
+.header__currency-arrow.--rotate {
+  transition: 100ms;
+  transform: rotate(0deg);
+}
 .header__currency-dropdown {
-  display: none;
-  visibility: hidden;
+  display: flex;
   flex-direction: column;
   position: absolute;
   background-color: white;
@@ -95,14 +99,6 @@
   top: 63px;
   transform: translate(-16px);
   z-index: 2;
-}
-.header__currency-selector:hover .header__currency-dropdown {
-  display: flex;
-  visibility: visible;
-}
-.header__currency-selector:hover .header__currency-arrow {
-  transition: 100ms;
-  transform: rotate(0deg);
 }
 .header__currency-dropdown-button {
   font: inherit;
@@ -115,4 +111,17 @@
 }
 .header__currency-dropdown-button:hover {
   background-color: #eeeeee;
+}
+
+.header__page-curtain {
+  position: absolute;
+  width: 100vw;
+  height: calc(100vh - 80px);
+  top: 80px;
+  right: 0;
+  background-color: transparent;
+  opacity: 0.3;
+}
+.header__page-curtain.--gray {
+  background-color: black;
 }

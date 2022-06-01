@@ -40,7 +40,7 @@
 .mini-cart__total {
   display: grid;
   justify-content: space-between;
-  grid-template-columns: repeat(auto-fill, 140px);
+  grid-template-columns: repeat(2, auto);
   margin-bottom: 32px;
   max-width: 100%;
   max-height: 28px;
@@ -79,13 +79,4 @@
 }
 .mini-cart__button.check-out:active {
   border: 1px solid black;
-}
-.mini-cart__page-curtain {
-  position: absolute;
-  width: 100vw;
-  height: calc(100vh - 80px);
-  top: 80px;
-  right: -100px;
-  background-color: black;
-  opacity: 0.3;
 }

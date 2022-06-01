@@ -1,4 +1,5 @@
 import { client } from "@tilework/opus";
+import { Markup } from "interweave";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Navigate } from "react-router-dom";
@@ -39,22 +40,25 @@ class ProductDetails extends Component {
 
   componentDidMount() {
     let arr = window.location.pathname.split("/");
-    let id = arr[arr.length - 1];
-    client.post(GET_PRODUCT_BY_ID(id)).then((result) => {
-      let { product } = result;
-      if (!product) this.setState({ noProduct: true });
-      else {
-        let preSelect = {};
-        product.attributes.map((attribute) => {
-          preSelect[attribute.type + ":" + attribute.id] = attribute.items[0].id;
-        });
-        this.setState({
-          product: product,
-          image: product.gallery[0],
-          selected: preSelect,
-        });
-      }
-    });
+    if (arr.length === 3 && arr[1] === "productDetails") {
+      let id = arr[2];
+      client.post(GET_PRODUCT_BY_ID(id)).then((result) => {
+        let { product } = result;
+        if (!product) this.setState({ noProduct: true });
+        else {
+          let preSelect = {};
+          product.attributes.map((attribute) => {
+            preSelect[attribute.type + ":" + attribute.id] = attribute.items[0].id;
+            return true;
+          });
+          this.setState({
+            product: product,
+            image: product.gallery[0],
+            selected: preSelect,
+          });
+        }
+      });
+    } else this.setState({ noProduct: true });
   }
 
   renderGalleryButton(image, id) {
@@ -66,7 +70,7 @@ class ProductDetails extends Component {
           this.handleGalleryButtonClick(image);
         }}
       >
-        <img className="product-page__gallery-thumbnail" src={image} />
+        <img className="product-page__gallery-thumbnail" src={image} alt="" />
       </div>
     );
   }
@@ -92,7 +96,7 @@ class ProductDetails extends Component {
             </div>
 
             <div className="product-page__gallery-image-container">
-              <img className="product-page__gallery-image" src={this.state.image} />
+              <img className="product-page__gallery-image" src={this.state.image} alt="" />
             </div>
           </div>
           <div className="product-page__details">
@@ -122,10 +126,7 @@ class ProductDetails extends Component {
             ) : (
               <button className="product-page__add-to-cart-button --inactive">OUT OF STOCK</button>
             )}
-            <div
-              className="product-page__details-text"
-              dangerouslySetInnerHTML={{ __html: product.description }}
-            />
+            <Markup className="product-page__details-text" content={product.description} />
           </div>
         </div>
       );
