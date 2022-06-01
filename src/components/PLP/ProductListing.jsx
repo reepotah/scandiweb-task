@@ -21,7 +21,7 @@ class ProductListing extends Component {
   handleCartClick(id) {
     client.post(GET_PRODUCT_BY_ID(id)).then((result) => {
       let { product } = result;
-      if (!product) this.setState({ noProduct: true });
+      if (!product) return;
       else {
         let preSelect = {};
         product.attributes.map((attribute) => {
@@ -43,6 +43,7 @@ class ProductListing extends Component {
       this.setState({ response: result });
     });
   }
+
   handleCategoryUrl() {
     if (this.state.error) {
       this.setState({ error: false });
@@ -65,6 +66,7 @@ class ProductListing extends Component {
       }
     }
   }
+
   componentDidMount() {
     this.handleCategoryUrl();
     if (this.props.category !== this.state.category) {
@@ -122,6 +124,7 @@ class ProductListing extends Component {
     );
   }
 }
+
 const mapStateToProps = (state) => {
   const { data } = state;
   return {

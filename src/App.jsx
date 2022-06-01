@@ -1,7 +1,7 @@
 import { client } from "@tilework/opus";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Navigate, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { GET_CATEGORIES, GET_CURRENCIES } from "./api/queries";
 import Header from "./components/Header/Header";
 import { setCategories, setCurrencies, setCurrency, setCurrentCategory } from "./redux/dataSlice";

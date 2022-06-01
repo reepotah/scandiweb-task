@@ -28,7 +28,8 @@ class Header extends React.Component {
     let currencySwitcher = this.state.currencySwitcher;
     let miniCart = this.state.miniCart;
 
-    if (!overlay || (overlay && miniCart)) this.setState({ overlay: !overlay, miniCart: !miniCart });
+    if (!overlay || (overlay && miniCart))
+      this.setState({ overlay: !overlay, miniCart: !miniCart });
     else if (overlay && currencySwitcher)
       this.setState({
         overlay: true,
@@ -56,7 +57,14 @@ class Header extends React.Component {
 
   renderButton(id, category) {
     var state = id === category;
-    return <NavButton key={id} value={id} isActive={state} onClick={() => this.handleNavButtonClick(id)} />;
+    return (
+      <NavButton
+        key={id}
+        value={id}
+        isActive={state}
+        onClick={() => this.handleNavButtonClick(id)}
+      />
+    );
   }
   renderDropdown(value) {
     return (
@@ -69,8 +77,7 @@ class Header extends React.Component {
       </button>
     );
   }
-  componentDidMount() {}
-  componentDidUpdate() {}
+
   render() {
     let overlay = this.state.overlay;
     let currencySwitcher = this.state.currencySwitcher;
@@ -91,9 +98,14 @@ class Header extends React.Component {
             <img className="header__cart-icon" src={cartIcon} alt="Cart" />
             {displayCounter && <div className="header__cart-counter">{this.props.cartCounter}</div>}
           </button>
-          <div className="header__currency-selector" onClick={() => this.handleSwitcherButtonClick()}>
+          <div
+            className="header__currency-selector"
+            onClick={() => this.handleSwitcherButtonClick()}
+          >
             {this.props.currency.symbol}
-            <span className={"header__currency-arrow" + (currencySwitcher ? " --rotate" : "")}>^</span>
+            <span className={"header__currency-arrow" + (currencySwitcher ? " --rotate" : "")}>
+              ^
+            </span>
             {currencySwitcher && (
               <div className="header__currency-dropdown">
                 {this.props.currencies.map((value) => {
@@ -113,6 +125,7 @@ class Header extends React.Component {
     );
   }
 }
+
 const mapStateToProps = (state) => {
   const { data, cart } = state;
   return {
