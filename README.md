@@ -15,7 +15,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 3. In the progect directory run `npm i`, `npm start`
 
 ### Gallery
-![PLP](https://user-images.githubusercontent.com/45051999/168438877-52970849-ab21-47c4-b116-6298ef764588.png)
-![MiniCart](https://user-images.githubusercontent.com/45051999/168438863-5fe5b595-8b5e-4ad4-937b-d1083088e97c.png)
-![Cart](https://user-images.githubusercontent.com/45051999/168438882-52dc3af6-a530-4d71-a3d7-e5696b9fad08.png)
-![PDP](https://user-images.githubusercontent.com/45051999/168438888-c0e7596b-be2f-43f8-b772-a61e4cfaee7e.png)
+![PLP](https://user-images.githubusercontent.com/45051999/171433801-0cef8f57-0f8d-45ce-ba75-b56eb91bc575.png)
+![MiniCart](https://user-images.githubusercontent.com/45051999/171433233-30e2148d-e682-4fa5-9392-3997b6b4fe5e.png)
+![PDP](https://user-images.githubusercontent.com/45051999/171433040-9ef1e396-5bf8-4002-9f5a-9f7ff367e57b.png)
+![изображение](https://user-images.githubusercontent.com/45051999/171433396-e7295e68-c2fb-475a-ba59-46f5dcb15c95.png)
